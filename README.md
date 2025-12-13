@@ -47,7 +47,11 @@ SyncScript is a collaborative, real-time code editor that allows multiple users 
 1. **Fork this repository:** Click the Fork button located in the top-right corner of this page.
 2. **Clone the repository:**
    ```bash
+<<<<<<< HEAD
    https://github.com/PriyanshiGovil/SyncScript.git
+=======
+   git clone https://github.com/<your-username>/Code-Sync.git
+>>>>>>> 63b0d55 (frontend changes)
    ```
 3. **Create .env file:**
    Inside the client and server directories create `.env` and set:
@@ -82,4 +86,3 @@ SyncScript is a collaborative, real-time code editor that allows multiple users 
 6. **Access the application:**
    ```bash
    http://localhost:5173/
-   
