@@ -82,4 +82,4 @@ SyncScript is a collaborative, real-time code editor that allows multiple users 
 6. **Access the application:**
    ```bash
    http://localhost:5173/
-   ``` meine ye readme likh rakha h
+   
