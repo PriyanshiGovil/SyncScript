@@ -6,16 +6,18 @@ import HomePage from "./pages/HomePage"
 
 const App = () => {
     return (
-        <>
+        <div className="w-screen h-screen overflow-hidden">
             <Router>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/editor/:roomId" element={<EditorPage />} />
                 </Routes>
             </Router>
-            <Toast /> {/* Toast component from react-hot-toast */}
+
+            {/* Global UI overlays */}
+            <Toast />
             <GitHubCorner />
-        </>
+        </div>
     )
 }
 

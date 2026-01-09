@@ -47,12 +47,15 @@ function EditorPage() {
         return <ConnectionStatusPage />
     }
 
-    return (
+   return (
+    <div className="flex w-full h-full overflow-hidden">
         <SplitterComponent>
             <Sidebar />
-            <WorkSpace/>
+            <WorkSpace />
         </SplitterComponent>
-    )
+    </div>
+)
+
 }
 
 export default EditorPage
