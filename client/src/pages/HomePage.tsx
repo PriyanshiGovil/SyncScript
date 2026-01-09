@@ -1,26 +1,28 @@
 import illustration from "@/assets/illustration.svg"
 import FormComponent from "@/components/forms/FormComponent"
 
-function HomePage() {
-    return (
-        <div className="flex min-h-screen flex-col items-center justify-center overflow-hidden py-12">
-            <div className="flex w-full max-w-6xl flex-col items-center justify-center gap-12 sm:flex-row">
-                
-                <div className="flex w-full justify-center sm:w-1/2 overflow-hidden">
-                    <img
-                        src={illustration}
-                        alt="Code Sync Illustration"
-                        className="mx-auto h-auto max-h-[50vh] max-w-full object-contain"
-                    />
-                </div>
+const HomePage: React.FC = () => {
+  return (
+    <div className="h-screen w-full flex items-center justify-center bg-dark overflow-hidden">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-12 px-6">
 
-                <div className="flex w-full items-center justify-center sm:w-1/2">
-                    <FormComponent />
-                </div>
-
-            </div>
+        {/* Illustration */}
+        <div className="flex w-1/2 justify-center">
+          <img
+            src={illustration}
+            alt="Code Sync Illustration"
+            className="max-h-[65vh] w-auto object-contain"
+          />
         </div>
-    )
+
+        {/* Form */}
+        <div className="flex w-1/2 justify-center">
+          <FormComponent />
+        </div>
+
+      </div>
+    </div>
+  )
 }
 
 export default HomePage
