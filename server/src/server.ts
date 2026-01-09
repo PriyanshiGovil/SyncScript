@@ -14,7 +14,9 @@ const app = express()
 app.use(express.json())
 
 app.use(cors({
-  origin: true, // frontend dev URL
+ origin: [
+    "https://sync-script-qy95-r95fy73wk-team125.vercel.app"
+  ], // frontend dev URL
   methods: ["GET", "POST"],
   credentials: true
 }));
@@ -24,7 +26,9 @@ app.use(express.static(path.join(__dirname, "public"))) // Serve static files
 const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+     origin: [
+      "https://sync-script-qy95-r95fy73wk-team125.vercel.app"
+    ],
     methods: ["GET", "POST"],
     credentials: true
   },
