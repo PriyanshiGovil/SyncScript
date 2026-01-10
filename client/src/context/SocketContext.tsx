@@ -40,14 +40,15 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
         drawingData,
         setDrawingData,
     } = useAppContext()
-    const socket: Socket = useMemo(
-        () =>
-            io(BACKEND_URL, {
-                  transports: ["websocket"], 
-                reconnectionAttempts: 2,
-            }),
-        [],
-    )
+   const socket: Socket = useMemo(
+    () =>
+       io(BACKEND_URL, {
+  transports: ["websocket"],
+})
+,
+    [],
+)
+
 
     const handleError = useCallback(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

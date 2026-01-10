@@ -29,11 +29,18 @@ function EditorPage() {
             navigate("/", {
                 state: { roomId },
             })
-        } else if (roomId) {
-            const user: User = { username, roomId }
-            setCurrentUser(user)
-            socket.emit(SocketEvent.JOIN_REQUEST, user)
-        }
+       } else if (roomId) {
+    const user: User = { username, roomId }
+    setCurrentUser(user)
+
+    // 🔥 IMPORTANT FIX
+    if (!socket.connected) {
+        socket.connect()
+    }
+
+    socket.emit(SocketEvent.JOIN_REQUEST, user)
+}
+
     }, [
         currentUser.username,
         location.state?.username,
