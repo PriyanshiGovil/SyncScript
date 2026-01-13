@@ -40,13 +40,13 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
         drawingData,
         setDrawingData,
     } = useAppContext()
-   const socket: Socket = useMemo(
-    () =>
-       io(BACKEND_URL, {
-  transports: ["websocket"],
-})
-,
-    [],
+ const socket: Socket = useMemo(
+  () =>
+    io(BACKEND_URL, {
+      transports: ["websocket"],
+      timeout: 20000,
+    }),
+  [BACKEND_URL],
 )
 
 
@@ -104,35 +104,35 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
         },
         [setDrawingData],
     )
+useEffect(() => {
+  socket.on("connect_error", handleError)
+  socket.on("connect_failed", handleError)
+  socket.on(SocketEvent.USERNAME_EXISTS, handleUsernameExist)
+  socket.on(SocketEvent.JOIN_ACCEPTED, handleJoiningAccept)
+  socket.on(SocketEvent.USER_DISCONNECTED, handleUserLeft)
+  socket.on(SocketEvent.REQUEST_DRAWING, handleRequestDrawing)
+  socket.on(SocketEvent.SYNC_DRAWING, handleDrawingSync)
 
-    useEffect(() => {
-        socket.on("connect_error", handleError)
-        socket.on("connect_failed", handleError)
-        socket.on(SocketEvent.USERNAME_EXISTS, handleUsernameExist)
-        socket.on(SocketEvent.JOIN_ACCEPTED, handleJoiningAccept)
-        socket.on(SocketEvent.USER_DISCONNECTED, handleUserLeft)
-        socket.on(SocketEvent.REQUEST_DRAWING, handleRequestDrawing)
-        socket.on(SocketEvent.SYNC_DRAWING, handleDrawingSync)
+  return () => {
+    socket.off("connect_error")
+    socket.off("connect_failed")
+    socket.off(SocketEvent.USERNAME_EXISTS)
+    socket.off(SocketEvent.JOIN_ACCEPTED)
+    socket.off(SocketEvent.USER_DISCONNECTED)
+    socket.off(SocketEvent.REQUEST_DRAWING)
+    socket.off(SocketEvent.SYNC_DRAWING)
 
-        return () => {
-            socket.off("connect_error")
-            socket.off("connect_failed")
-            socket.off(SocketEvent.USERNAME_EXISTS)
-            socket.off(SocketEvent.JOIN_ACCEPTED)
-            socket.off(SocketEvent.USER_DISCONNECTED)
-            socket.off(SocketEvent.REQUEST_DRAWING)
-            socket.off(SocketEvent.SYNC_DRAWING)
-        }
-    }, [
-        handleDrawingSync,
-        handleError,
-        handleJoiningAccept,
-        handleRequestDrawing,
-        handleUserLeft,
-        handleUsernameExist,
-        setUsers,
-        socket,
-    ])
+    socket.disconnect() // 🔥 VERY IMPORTANT
+  }
+}, [
+  handleDrawingSync,
+  handleError,
+  handleJoiningAccept,
+  handleRequestDrawing,
+  handleUserLeft,
+  handleUsernameExist,
+  socket,
+])
 
     return (
         <SocketContext.Provider
